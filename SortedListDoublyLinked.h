@@ -5,6 +5,9 @@
 #include "Text.h"
 using CSC2110::String;
 
+#include <iostream>
+using namespace std;
+
 template < class T >
 class SortedListDoublyLinked
 {
@@ -75,25 +78,28 @@ T* SortedListDoublyLinked<T>::remove(DoubleNode<T>* curr)
    //DO THIS (prev == NULL / after == NULL are special cases)
    //remember to set loc
 
-   T* item;
+   T* item = curr->getItem();
 
-   DoubleNode<T>* prev;
-   DoubleNode<T>* after;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   DoubleNode<T>* prev = curr->getPrev();
+   DoubleNode<T>* after = curr->getNext();
+   if (prev != NULL && after != NULL)
+   {
+	   prev->setNext(after);
+	   after->setPrev(prev);
+	   loc = after;
+   }
+   else if (prev == NULL && after != NULL)
+   {
+	   after->setPrev(NULL);
+	   loc = after;
+   }
+   else if (after == NULL && prev != NULL)
+   {
+	   prev->setNext(NULL);
+	   loc = prev;
+   }
+   else
+	   loc = NULL;
    sze--;
    delete curr;
    return item;
