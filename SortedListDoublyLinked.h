@@ -5,9 +5,6 @@
 #include "Text.h"
 using CSC2110::String;
 
-#include <iostream>
-using namespace std;
-
 template < class T >
 class SortedListDoublyLinked
 {
@@ -21,8 +18,7 @@ class SortedListDoublyLinked
       DoubleNode<T>* locateNodeRemove(String* sk);
       DoubleNode<T>* locateNodeAdd(T* item);
 
-      DoubleNode<T>* addDN(T* item);
-      T* remove(DoubleNode<T>* curr);
+      
 
       DoubleNode<T>* findHead();
       DoubleNode<T>* findTail();
@@ -37,6 +33,9 @@ class SortedListDoublyLinked
       bool isEmpty();
       int size();
       void removeAll();
+	  
+	  DoubleNode<T>* addDN(T* item);
+      T* remove(DoubleNode<T>* curr);
 
       T* get(String* sk);
       void add(T* item);
@@ -82,24 +81,27 @@ T* SortedListDoublyLinked<T>::remove(DoubleNode<T>* curr)
 
    DoubleNode<T>* prev = curr->getPrev();
    DoubleNode<T>* after = curr->getNext();
-   if (prev != NULL && after != NULL)
+   if (sze == 1)
    {
-	   prev->setNext(after);
-	   after->setPrev(prev);
+	   loc = NULL;
+   }
+   else if (prev == NULL)
+   {
+	   after->setPrev(NULL);	//<- if crashes
 	   loc = after;
    }
-   else if (prev == NULL && after != NULL)
-   {
-	   after->setPrev(NULL);
-	   loc = after;
-   }
-   else if (after == NULL && prev != NULL)
+   else if (after == NULL)
    {
 	   prev->setNext(NULL);
 	   loc = prev;
    }
    else
-	   loc = NULL;
+   {
+	   prev->setNext(after);
+	   after->setPrev(prev);
+	   loc = after;
+   }
+
    sze--;
    delete curr;
    return item;
