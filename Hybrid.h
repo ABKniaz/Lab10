@@ -8,7 +8,6 @@ using CSC2110::QueueLinked;
 template < class T >
 class Hybrid
 {
-
    private:
       //QueueLinked<T>* q;
 	  QueueLinked<DoubleNode<T> >* q;
@@ -22,7 +21,6 @@ class Hybrid
       void enqueue(T* item);
       T* dequeue();
       ListDoublyLinkedIterator<T>* iterator();
-
 };
 
 template < class T >

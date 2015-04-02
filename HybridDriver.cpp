@@ -1,3 +1,5 @@
+//github: https://github.com/abkniaz/lab10
+
 #include "Hybrid.h"
 #include "CD.h"
 using CSC2110::CD;
